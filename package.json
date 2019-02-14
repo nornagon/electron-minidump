@@ -1,0 +1,17 @@
+{
+  "name": "electron-minidump",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-download": "^4.1.1",
+    "extract-zip": "^1.6.7",
+    "minidump": "^0.15.0",
+    "yargs": "^13.1.0"
+  }
+}
