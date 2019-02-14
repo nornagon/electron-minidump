@@ -1,12 +1,20 @@
 {
   "name": "electron-minidump",
   "version": "1.0.0",
-  "description": "",
+  "description": "Symbolicate Electron Windows minidump crashes",
   "main": "index.js",
+  "bin": {
+    "electron-minidump": "./cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jeremy Apthorp <nornagon@nornagon.net>",
+  "repository": "https://github.com/nornagon/electron-minidump",
+  "keywords": [
+    "atos",
+    "electron"
+  ],
   "license": "ISC",
   "dependencies": {
     "electron-download": "^4.1.1",
