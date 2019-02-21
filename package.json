@@ -12,7 +12,8 @@
   "author": "Jeremy Apthorp <nornagon@nornagon.net>",
   "repository": "https://github.com/nornagon/electron-minidump",
   "keywords": [
-    "atos",
+    "minidump",
+    "crash",
     "electron"
   ],
   "license": "ISC",
