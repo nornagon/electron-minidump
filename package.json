@@ -1,6 +1,6 @@
 {
   "name": "electron-minidump",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Symbolicate Electron Windows minidump crashes",
   "main": "index.js",
   "bin": {
