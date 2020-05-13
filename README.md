@@ -1,6 +1,6 @@
 # electron-minidump
 
-Symbolicates Electron Windows crashes in minidump format. c.f. [electron-atos](https://github.com/nornagon/electron-atos).
+Symbolicates Electron crashes in minidump format. c.f. [@electron/symbolicate-mac](https://github.com/electron/symbolicate-mac).
 
 To install: `npm install -g electron-minidump`.
 
