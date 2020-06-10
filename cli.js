@@ -15,6 +15,18 @@ const argv = require('yargs')
     demandOption: true,
     describe: 'electron version',
   })
+  .option('platform', {
+    alias: 'p',
+    demandOption: true,
+    describe: 'platform',
+    choices: ['darwin', 'win32', 'linux', 'mas'],
+  })
+  .option('arch', {
+    alias: 'a',
+    demandOption: true,
+    describe: 'architecture',
+    choices: ['ia32', 'x64', 'arm64', 'armv7l']
+  })
   .option('quiet', {
     alias: 'q',
     describe: 'suppress download progress output',
