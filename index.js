@@ -5,11 +5,10 @@ const electronDownload = require('electron-download')
 const extractZip = require('extract-zip')
 
 const electronMinidump = async (options) => {
-  const {version, quiet, force, file} = options
-  const platform = 'win32'
+  const {version, quiet, force, file, platform, arch} = options
   const directory = path.join(__dirname, 'cache', version + '-' + platform)
 
-  await download({version, quiet, directory, platform, force})
+  await download({version, quiet, directory, platform, arch, force})
 
   const symbolPaths = [
     path.join(directory, 'breakpad_symbols'),
@@ -26,13 +25,13 @@ const electronMinidump = async (options) => {
 
 const download = (options) => {
   return new Promise((resolve, reject) => {
-    const {version, quiet, directory, platform, force} = options
+    const {version, quiet, directory, platform, arch, force} = options
 
     if (fs.existsSync(directory) && !force) return resolve()
 
     electronDownload({
       platform,
-      arch: 'x64',
+      arch,
       version,
       symbols: true,
       quiet,

@@ -1,6 +1,8 @@
 # electron-minidump
 
-Symbolicates Electron crashes in minidump format. c.f. [@electron/symbolicate-mac](https://github.com/electron/symbolicate-mac).
+Symbolicates Electron crashes in minidump format. c.f.
+[@electron/symbolicate-mac](https://github.com/electron/symbolicate-mac), which
+does a similar thing for text-based crash dumps formatted by macOS.
 
 To install: `npm install -g electron-minidump`.
 
@@ -9,15 +11,19 @@ $ electron-minidump --help
 electron-minidump [args]
 
 Options:
-  --file, -f     path to minidump (.dmp) file                         [required]
-  --version, -v  electron version                                     [required]
-  --quiet, -q    suppress download progress output
-  --force        redownload symbols if present in cache
-  --help         Show help                                             [boolean]
+  --file, -f      path to minidump (.dmp) file                        [required]
+  --version, -v   electron version                                    [required]
+  --platform, -p  platform on which crash was recorded
+                         [required] [choices: "win32", "darwin", "mas", "linux"]
+  --arch, -a      architecture on which crash was recorded
+                          [required] [choices: "x64", "ia32", "arm64", "armv7l"]
+  --quiet, -q     suppress download progress output
+  --force         redownload symbols if present in cache
+  --help          Show help                                            [boolean]
 ```
 
 ```sh
-$ electron-minidump -f crash.dmp -v 3.1.0-beta.5
+$ electron-minidump -f crash.dmp -v 3.1.0-beta.5 -p win32 -a x64
 Operating system: Windows NT
                   10.0.17134
 CPU: amd64
