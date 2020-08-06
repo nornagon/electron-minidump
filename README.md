@@ -12,18 +12,13 @@ electron-minidump [args]
 
 Options:
   --file, -f      path to minidump (.dmp) file                        [required]
-  --version, -v   electron version                                    [required]
-  --platform, -p  platform on which crash was recorded
-                         [required] [choices: "win32", "darwin", "mas", "linux"]
-  --arch, -a      architecture on which crash was recorded
-                          [required] [choices: "x64", "ia32", "arm64", "armv7l"]
   --quiet, -q     suppress download progress output
   --force         redownload symbols if present in cache
   --help          Show help                                            [boolean]
 ```
 
 ```sh
-$ electron-minidump -f crash.dmp -v 3.1.0-beta.5 -p win32 -a x64
+$ electron-minidump -f crash.dmp
 Operating system: Windows NT
                   10.0.17134
 CPU: amd64

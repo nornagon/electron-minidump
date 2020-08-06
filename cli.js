@@ -10,23 +10,6 @@ const argv = require('yargs')
     describe: 'path to minidump (.dmp) file',
     demandOption: true,
   })
-  .option('version', {
-    alias: 'v',
-    demandOption: true,
-    describe: 'electron version',
-  })
-  .option('platform', {
-    alias: 'p',
-    describe: 'platform on which crash was recorded',
-    choices: ['win32', 'darwin', 'mas', 'linux'],
-    demandOption: true,
-  })
-  .option('arch', {
-    alias: 'a',
-    describe: 'architecture on which crash was recorded',
-    choices: ['x64', 'ia32', 'arm64', 'armv7l'],
-    demandOption: true,
-  })
   .option('quiet', {
     alias: 'q',
     describe: 'suppress download progress output',
