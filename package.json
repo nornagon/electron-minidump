@@ -18,8 +18,6 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "electron-download": "^4.1.1",
-    "extract-zip": "^1.6.7",
     "minidump": "https://github.com/electron/node-minidump#6ed6debd2cc99e691bc0556a4290c25aa072c027",
     "yargs": "^13.1.0"
   }
