@@ -1,7 +1,7 @@
 {
   "name": "electron-minidump",
-  "version": "2.0.0",
-  "description": "Symbolicate Electron Windows minidump crashes",
+  "version": "3.0.1",
+  "description": "Symbolicate crashes in minidump format",
   "main": "index.js",
   "bin": {
     "electron-minidump": "./cli.js"
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "minidump": "https://github.com/electron/node-minidump#6ed6debd2cc99e691bc0556a4290c25aa072c027",
+    "progress": "^2.0.3",
     "yargs": "^13.1.0"
   }
 }

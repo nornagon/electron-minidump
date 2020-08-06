@@ -1,12 +1,14 @@
 const fs = require('fs')
 const path = require('path')
 const minidump = require('minidump')
+const ProgressBar = require('progress')
 
 const electronMinidump = async (options) => {
   const {quiet, force, file} = options
   const directory = path.join(__dirname, 'cache', 'breakpad_symbols')
 
   await findSymbols({directory, file, quiet})
+  if (!quiet) console.error("Symbolicating...")
 
   const r = await new Promise((resolve, reject) => {
     minidump.walkStack(file, [directory], (err, rep) => {
@@ -105,13 +107,20 @@ const findSymbols = async ({directory, file, quiet}) => {
           if (await fetchSymbol(directory, baseUrl, pdb, id, symbolFileName))
             break
         }
+        if (bar)
+          bar.tick({ symbol: pdb })
       })())
     }
   }
+  const bar = quiet ? null : new ProgressBar('  Downloading symbols [:bar] :percent :symbol', {
+    total: promises.length
+  })
   if (!quiet && promises.length > 0) {
-    console.log(`Downloading ${promises.length} symbol files from ${SYMBOL_BASE_URLS.join(',')}...`)
+    console.error(`Downloading ${promises.length} symbol files from ${SYMBOL_BASE_URLS.join(',')}...`)
   }
   await Promise.all(promises)
+  if (!quiet && promises.length > 0)
+    console.error()
 }
 
 module.exports = {minidump: electronMinidump}
