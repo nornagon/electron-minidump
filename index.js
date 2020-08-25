@@ -87,7 +87,7 @@ const findSymbols = async ({directory, file, quiet}) => {
     // or on a linux dump:
     //   (debug_file)                    = "/XXXX/XXXXXX/XXXX/XXX/XXXXXXXXXXXXXXXX/libc.so.6"
     //   (debug_identifier)              = "4B76CFD3972F3EACFE366DDD07AD902F0"
-    const re = /\(debug_file\)\s+= "(?:[X/]+\/)?([^"]+)"\s+\(debug_identifier\)\s+= "([0-9A-F]+)"/mg
+    const re = /\(debug_file\)\s+= "(?:.+\/)?([^"]+)"\s+\(debug_identifier\)\s+= "([0-9A-F]+)"/mg
     let m;
     while (m = re.exec(r)) {
       const [, file, id] = m
