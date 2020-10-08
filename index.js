@@ -7,7 +7,7 @@ const electronMinidump = async (options) => {
   const {quiet, force, file} = options
   const directory = path.join(__dirname, 'cache', 'breakpad_symbols')
 
-  await findSymbols({directory, file, quiet})
+  await findSymbols({directory, file, quiet, force})
   if (!quiet) console.error("Symbolicating...")
 
   const r = await new Promise((resolve, reject) => {
@@ -20,7 +20,7 @@ const electronMinidump = async (options) => {
 }
 
 const SYMBOL_BASE_URLS = [
-  'https://symbols.mozilla.org',
+  'https://symbols.mozilla.org/try',
   'https://symbols.electronjs.org',
 ]
 
@@ -72,7 +72,7 @@ function fetchSymbol(directory, baseUrl, pdb, id, symbolFileName) {
   })
 }
 
-const findSymbols = async ({directory, file, quiet}) => {
+const findSymbols = async ({directory, file, quiet, force}) => {
   // Extract a list of referenced modules using minidump_dump
   const modules = []
   {
@@ -101,7 +101,7 @@ const findSymbols = async ({directory, file, quiet}) => {
     if (/^0+$/.test(id)) continue
     const symbolFileName = pdb.replace(/(\.pdb)?$/, '.sym')
     const symbolPath = path.join(directory, pdb, id, symbolFileName)
-    if (!fs.existsSync(symbolPath) && !fs.existsSync(path.dirname(symbolPath))) {
+    if (!fs.existsSync(symbolPath) && (!fs.existsSync(path.dirname(symbolPath)) || force)) {
       promises.push((async () => {
         for (const baseUrl of SYMBOL_BASE_URLS) {
           if (await fetchSymbol(directory, baseUrl, pdb, id, symbolFileName))
