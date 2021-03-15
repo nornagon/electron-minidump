@@ -1,4 +1,5 @@
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const minidump = require('minidump')
 const ProgressBar = require('progress')
@@ -6,6 +7,37 @@ const ProgressBar = require('progress')
 const electronMinidump = async (options) => {
   const {quiet, force, file} = options
   const directory = path.join(__dirname, 'cache', 'breakpad_symbols')
+
+  const fh = await fs.promises.open(file)
+  const buf = Buffer.alloc(4)
+  const { bytesRead } = await fh.read(buf, 0, 4, 0)
+  if (bytesRead !== buf.length) {
+    console.error(`Not a minidump file (file too short): ${file}`)
+    process.exit(1)
+  }
+
+  if (buf.readUInt32BE(0) !== 0x4D444D50 /* MDMP */) {
+    // Breakpad .dmp files have some http junk at the beginning.
+    // read the first 16kb and look for MDMP to see if this is the case.
+    const {buffer} = await fh.read({position: 0})
+    for (let offset = 0; offset < buffer.length - 4; offset++) {
+      if (buffer.readUInt32BE(offset) === 0x4D444D50) {
+        // Found MDMP, write it to a tmp file
+        const tmp = path.join(os.tmpdir(), 'electron-minidump-' + ((Math.random()*256*256*256)|0).toString(16).padStart(6, '0') + '.dmp')
+        await new Promise((resolve, reject) => {
+          fs.createReadStream(file, {start: offset})
+            .on('end', resolve)
+            .on('error', reject)
+            .pipe(fs.createWriteStream(tmp))
+        })
+        const s = await electronMinidump({...options, file: tmp})
+        await fs.promises.unlink(tmp)
+        return s
+      }
+    }
+    console.error(`Not a minidump file (MDMP header not found): ${file}`)
+    process.exit(1)
+  }
 
   await findSymbols({directory, file, quiet, force})
   if (!quiet) console.error("Symbolicating...")
