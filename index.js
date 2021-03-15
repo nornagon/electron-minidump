@@ -57,7 +57,7 @@ const SYMBOL_BASE_URLS = [
 ]
 
 function fetchSymbol(directory, baseUrl, pdb, id, symbolFileName) {
-  const url = `${baseUrl}/${pdb}/${id}/${symbolFileName}`
+  const url = `${baseUrl}/${encodeURIComponent(pdb)}/${id}/${encodeURIComponent(symbolFileName)}`
   const symbolPath = path.join(directory, pdb, id, symbolFileName)
   return new Promise((resolve, reject) => {
     // We use curl here in order to avoid having to deal with redirects +
