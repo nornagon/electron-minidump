@@ -110,7 +110,7 @@ const findSymbols = async ({directory, file, quiet, force}) => {
   {
     const r = await new Promise((resolve, reject) => {
       minidump.dump(file, (err, rep) => {
-        resolve(rep)
+        resolve(rep.toString('utf8'))
       })
     })
     // minidump_dump's output has lines like:
