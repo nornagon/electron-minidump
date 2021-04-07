@@ -1,6 +1,6 @@
 {
   "name": "electron-minidump",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Symbolicate crashes in minidump format",
   "main": "index.js",
   "bin": {
