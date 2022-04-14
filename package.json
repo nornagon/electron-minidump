@@ -18,7 +18,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "minidump": "https://github.com/electron/node-minidump#6ed6debd2cc99e691bc0556a4290c25aa072c027",
+    "minidump": "^0.22.0",
     "progress": "^2.0.3",
     "yargs": "^13.1.0"
   }
