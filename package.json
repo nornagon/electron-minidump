@@ -18,7 +18,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "minidump": "^0.22.0",
+    "minidump": "^0.23.0",
     "progress": "^2.0.3",
     "yargs": "^13.1.0"
   }
